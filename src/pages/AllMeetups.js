@@ -7,10 +7,9 @@ const AllMeetupsPage = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://react-course-meetups-c9f4c-default-rtdb.firebaseio.com/meetups.json")
-    .then((response) => {
-      return response.json();
-    }).then((data) => {
+    async function getMeetups() {
+      const response = await fetch("https://react-course-meetups-c9f4c-default-rtdb.firebaseio.com/meetups.json");
+      const data = await response.json();
       const meetups = [];
 
       for (const key in data) {
@@ -22,7 +21,9 @@ const AllMeetupsPage = () => {
 
       setIsLoading(false);
       setMeetups(meetups);
-    });
+    }
+
+    getMeetups();
   }, []);
 
   
